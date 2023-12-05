@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ECE312 Midterm 1 Grade Calculator</title>
+    <style>
+        /* Optional CSS for styling */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>ECE312 Midterm 1 Grade Calculator</h2>
+    <p>TA Mr. H</p>
+    <label for="M1">M1 Grade:</label>
+    <input type="number" id="M1" placeholder="Enter M1 Grade (max 200)">
+
+    <label for="M2">M2 Grade:</label>
+    <input type="number" id="M2" placeholder="Enter M2 Grade (max 200)">
+
+    <label for="F">Final Exam Grade:</label>
+    <input type="number" id="F" placeholder="Enter Final Exam Grade (max 350)">
+
+    <button onclick="calculateGrade()">Calculate Revised Grade</button>
+
+    <p id="analysis"></p>
+    <p id="result"></p>
+</div>
+
+<script>
+    function calculateGrade() {
+        var M1 = parseFloat(document.getElementById('M1').value);
+        var M2 = parseFloat(document.getElementById('M2').value);
+        var F = parseFloat(document.getElementById('F').value);
+
+        if (M1 > 200 || M2 > 200 || F > 350) {
+            document.getElementById('result').innerHTML = 'Error: Please enter valid grades within the specified limits.';
+            return;
+        }
+
+        var M2FS = (M2 + F)/550;
+        var M1S = M1/200;
+        document.getElementById('analysis').innerHTML = 'Your combined M2 and Final is ' + M2FS.toFixed(2) + ' and your original M1 is '+M1S.toFixed(2);
+
+        if (M2FS > M1S) {
+            var revisedGrade = 0.7 * (M2FS) * 200 + 0.3 * M1;
+            document.getElementById('result').innerHTML = 'You have revised Grade for M1: ' + revisedGrade.toFixed(2);
+        } else {
+            document.getElementById('result').innerHTML = 'You have no revision, your M1 is still: ' + M1.toFixed(2);
+        }
+    }
+</script>
+
+</body>
+</html>
